@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: timedeal-app-service
+  namespace: test-app
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "external" # 외부 ALB 사용
+spec:
+  selector:
+    app: timedeal-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP  # ALB와 함께 사용하기 위해 ClusterIP 유지
