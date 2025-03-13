@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-timedeal-deployment
+  namespace: argocd
+spec:
+  project: timedealapp
+  source:
+    repoURL: 'https://github.com/strong2team/shoppingMall-eks.git'
+    targetRevision: HEAD
+    path: 'deployment'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: test-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+# Application은 ArgoCD에서 관리되는 실제 애플리케이션의 리소스입니다.
+# 애플리케이션은 Git 레포지토리, Kubernetes 클러스터, 네임스페이스 및 동기화 설정 등을 포함하는 구체적인 리소스를 정의
