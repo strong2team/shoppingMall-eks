@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: timedeal-app-ingress
+  namespace: test-app
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing  # 외부에서 접근 가능하도록 설정
+    alb.ingress.kubernetes.io/target-type: ip  # Pod IP로 트래픽 전달
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS": 443}]'  # HTTP 80 포트와 HTTPS 443 포트 사용
+    alb.ingress.kubernetes.io/ssl-redirect: '443'  # 80 -> 443 으로 리다이렉션
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:820242919524:certificate/c387fc1d-8383-4f24-8046-3b98e6bed019  # SSL 인증서 ARN 추가
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: timedeal-app-service
+                port:
+                  number: 80
