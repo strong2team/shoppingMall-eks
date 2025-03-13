@@ -8,8 +8,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: timedeal-app  # HPA를 적용할 Deployment 이름
-  minReplicas: 3        # 최소 Pod 수
-  maxReplicas: 10       # 최대 Pod 수
+  minReplicas: 2        # 최소 Pod 수
+  maxReplicas: 5       # 최대 Pod 수
   metrics:
   - type: Resource
     resource:
