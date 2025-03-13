@@ -11,7 +11,7 @@ spec:
     path: 'hpa'  # HPA 디렉토리만 지정
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: default
+    namespace: test-app
   syncPolicy:
     automated:
       prune: true
