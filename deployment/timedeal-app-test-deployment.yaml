@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timedeal-app
+  namespace: test-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: timedeal-app
+  template:
+    metadata:
+      labels:
+        app: timedeal-app
+    spec:
+      serviceAccountName: aws-secrets-sa  # AWS IAM 역할이 연결된 서비스 계정 사용
+      containers:
+        - name: timedeal-app
+          image: 820242919524.dkr.ecr.ap-northeast-2.amazonaws.com/shop:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: secrets-store
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+          envFrom:
+            - secretRef:
+                name: aws-secrets
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "aws-secrets"
