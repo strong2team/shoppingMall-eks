@@ -1,0 +1,16 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: timedealapp
+  namespace: argocd
+spec:
+  description: "Project for Timedeal Application"
+  sourceRepos:
+    - 'https://github.com/strong2team/shoppingMall-eks.git'  # GitHub 레포지토리 URL
+  destinations:
+    - namespace: test-app
+      server: 'https://kubernetes.default.svc'
+
+# AppProject는 여러 Application을 관리하는 논리적인 그룹입니다. 
+# AppProject는 여러 애플리케이션을 그룹화하여 권한 및 리소스 설정을 중앙집중적으로 관리할 수 있습니다.
