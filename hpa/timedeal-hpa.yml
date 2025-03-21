@@ -16,4 +16,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50  # CPU 사용률 50%를 목표로 자동 확장
+        averageUtilization: 20  # CPU 사용률 50%를 목표로 자동 확장
